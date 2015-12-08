@@ -1,0 +1,41 @@
+---
+mariadb_pkgs_6: []
+#  - python-selinux
+#  - python-mysqldb
+#  - mysql-server
+#  - mysql-server-5.1
+#  - mysqltuner    
+#  # needed by innotop
+#  - libterm-readkey-perl
+#  - maatkit
+
+mariadb_pkgs_7: []
+#  - python-selinux
+#  - python-mysqldb
+#  - mysql-server
+#  - mysql-server-5.5
+#  - mysqltuner    
+#  # needed by innotop
+#  - libterm-readkey-perl
+#  - percona-toolkit
+
+# Ubuntu 14.04
+mariadb_pkgs_14: 
+  - python-selinux
+  - python-mysqldb
+  - mariadb-common
+  - mariadb-client
+  - mariadb-client-5.5
+  - mariadb-client-core-5.5
+  - mariadb-server
+  - mariadb-server-5.5
+  - mariadb-server-core-5.5
+  - mysqltuner    
+  # needed by innotop
+  - libterm-readkey-perl
+  - percona-toolkit
+
+
+mariadb_service: mysql
+mariadb_conf_dir: "/etc/mysql/conf.d"
+

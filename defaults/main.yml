@@ -1,0 +1,21 @@
+---
+# defaults file for mariadb
+mariadb: true
+
+mariadb_bind_address: "127.0.0.1"
+
+mariadb_key_buffer: "16M"
+mariadb_join_buffer_size: "4M"
+
+mariadb_max_allowed_packet: "16M"
+mariadb_max_connect_errors: "2000"
+mariadb_max_connections: 250
+
+mariadb_table_cache: 4096
+
+mariadb_query_cache_limit: "64M"
+mariadb_query_cache_size: "128M"
+
+mariadb_long_query_time: "0.5"
+
+mariadb_innodb_buffer_pool_size: "128M"

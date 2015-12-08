@@ -1,0 +1,42 @@
+---
+# tasks file for mariadb
+- name: Load the OS specific variables
+  tags: mariadb
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install the packages in Redhat derivates
+  tags: mariadb
+  yum: name={{ item }} state=present
+  with_items: mariadb_pkgs
+  when: ansible_os_family == 'RedHat'
+
+- name: Install the packages in Debian derivates
+  tags: mariadb
+  apt: name={{ item }} state=present update_cache=yes cache_valid_time=600
+  with_items: mariadb_pkgs_{{ ansible_lsb.major_release }}
+  environment: 
+    # prevent mariadb from autostart after installation
+    RUNLEVEL: 1
+  when: ansible_os_family == 'Debian'
+
+#- name: Get mysql version
+#  tags: mariadb
+#  always_run: true
+#  changed_when: false
+#  shell: mysql -V | sed -e "s/mysql  Ver [.0-9]* Distrib \([0-9]\)\.\([0-9]\)\.\([0-9]\{1,3\}\).*/\1\2/g"
+#  register: mysql_version
+
+- name: Load mariadb config files
+  tags: mariadb
+  template: src={{ item + '.j2' }} dest={{ mariadb_conf_dir }}/{{ item }} owner=root group=root mode=0644 backup=yes
+  with_items: 
+    - client.cnf
+    - mysql-clients.cnf
+    - server.cnf
+  notify: 
+    - restart mariadb
+
+- name: Start the mariadb service
+  tags: mariadb
+  service: name={{ mariadb_service }} state=started enabled=yes
+

@@ -1,0 +1,59 @@
+#
+# These groups are read by MariaDB server.
+# Use it for options that only the server (but not clients) should see
+#
+# See the examples of server my.cnf files in /usr/share/mysql/
+#
+
+# this is read by the standalone daemon and embedded servers
+[server]
+
+# this is only for the mysqld standalone daemon
+[mysqld]
+bind={{ mariadb_bind_address }}
+
+# performance settings
+key_buffer={{ mariadb_key_buffer }}
+join_buffer_size={{ mariadb_join_buffer_size }}
+
+max_allowed_packet={{ mariadb_max_allowed_packet }}
+max_connect_errors={{ mariadb_max_connect_errors }}
+max_connections={{ mariadb_max_connections }}
+
+table_cache={{ mariadb_table_cache }}
+
+query_cache_type=1
+query_cache_limit={{ mariadb_query_cache_limit }}
+query_cache_size= {{ mariadb_query_cache_size }}
+
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 2
+thread_cache_size = 4
+
+# Logs
+slow_query_log		= ON
+slow_query_log_file	= /var/log/mariadb/mariadb-slow.log
+long_query_time         = {{ mariadb_long_query_time }}
+
+# InnoDB
+innodb_file_per_table = 1
+
+innodb_buffer_pool_size = {{ mariadb_innodb_buffer_pool_size }}
+innodb_buffer_pool_instances = {{ mariadb_innodb_buffer_pool_instances|default(1) }} 
+innodb_flush_log_at_trx_commit = {{ mariadb_innodb_flush_log_at_trx_commit|default(1) }}
+
+# this is only for embedded server
+[embedded]
+
+# This group is only read by MariaDB-5.5 servers.
+# If you use the same .cnf file for MariaDB of different versions,
+# use this group for options that older servers don't understand
+[mysqld-5.5]
+
+# These two groups are only read by MariaDB servers, not by MySQL.
+# If you use the same .cnf file for MySQL and MariaDB,
+# you can put MariaDB-only options here
+[mariadb]
+
+[mariadb-5.5]
+

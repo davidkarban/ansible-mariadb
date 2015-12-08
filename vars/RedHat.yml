@@ -1,0 +1,15 @@
+---
+mariadb_pkgs: 
+  - libselinux-python
+  - MySQL-python
+  - MariaDB-server
+  - MariaDB-client
+  - mysqltuner    
+  # needed by innotop
+  - perl-TermReadKey
+  - innotop
+#  - percona-toolkit
+
+mariadb_service: mariadb
+mariadb_conf_dir: "/etc/my.cnf.d"
+
